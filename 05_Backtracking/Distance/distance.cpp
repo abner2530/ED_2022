@@ -38,11 +38,11 @@ bool preencher(string& line, int it, int lim, int prox) {
 }
 
 int main () {
-    ifstream arq("input.txt");
     string line;
+    int lim; 
     int prox = 0;
-    arq >> line >> prox;
-    int lim = 2;
+    cin >> line >> lim;
+    prox = lim;
     while (!preencher(line, 0, lim, prox)) {
         lim++;
     }

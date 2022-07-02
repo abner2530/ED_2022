@@ -6,10 +6,6 @@
 using namespace std;
 using matrix = vector<string>;
 
-bool pode_furar(matrix mat, Pos p){
-
-}
-
 struct Pos {
     int l, c;
     Pos (int l, int c): l(l), c(c) {};
@@ -25,6 +21,26 @@ vector<Pos> suffle(vector<Pos> vet){
     return vet;
 }
 
+void show(matrix& mat) {
+    for (auto line : mat)
+        cout << line << '\n';
+    getchar();
+}
+
+bool pode_furar(matrix& mat, Pos p){
+    int nl = mat.size();
+    int nc = mat[0].size();
+    int count { 0 };
+    for( auto viz : get_neib(p)) {
+        auto [l, c] = viz;
+        if (l < 0 || l >= nl || c < 0 || c >= nc)
+        continue;
+        if(mat[viz.l][viz.c] == '#')
+            count+=1;
+    }
+    return (count >= 3);
+}
+
 void furar(matrix& mat, Pos p){
     int nl = mat.size();
     int nc = mat[0].size();
@@ -33,10 +49,12 @@ void furar(matrix& mat, Pos p){
         return;
     if (mat[l][c] != '#')
         return;
-    if (! pode_furar(mat, p))
+    if (!pode_furar(mat, p))
         return;
-    mat[l][c] = '.';
-    suffle(get_neib(p));
+    mat[l][c] = ' ';
+    show(mat);
+    for(auto vizi : suffle(get_neib(p)))
+        furar(mat, vizi);
 }
 
 
@@ -49,12 +67,7 @@ int main (int argc, char * argv[]) {
     int nl { 0 }, nc { 0 };
     stringstream(argv[1]) >> nl;
     stringstream(argv[2]) >> nc;
-
-    cout << nl << " " << nc << "\n";
-
     vector<string> mat (nl, string(nc, '#'));
 
-    for (auto line : mat)
-        cout << line << '\n';
-
+    furar(mat, Pos(1,1));
 }
