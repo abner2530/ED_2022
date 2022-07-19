@@ -11,12 +11,12 @@ struct Pos {
     Pos (int l, int c): l(l), c(c) {};
 };
 
-vector<Pos> get_neib(Pos p){
+vector<Pos> get_neib(Pos p) {
     auto [l, c] = p;
     return {{l, c -1}, {l - 1, c}, {l, c + 1}, {l + 1, c}};
 }
 
-vector<Pos> suffle(vector<Pos> vet){
+vector<Pos> suffle(vector<Pos> vet) {
     random_shuffle(begin(vet), end(vet));
     return vet;
 }
@@ -27,49 +27,57 @@ void show(matrix& mat) {
     getchar();
 }
 
-bool pode_furar(matrix& mat, Pos p){
+bool pode_furar(matrix& mat, Pos p) {
     int nl = mat.size();
     int nc = mat[0].size();
-    {
-        auto [l, c] = p;
-        if (l < 0 || l >= nl || c < 0 || c >= nc)
-            return false;
-        if(mat[l][c] != '#')
-            return false;
-
-    }
+    auto [l, c] = p;
     int count { 0 };
+
+    if (l < 0 || l >= nl || c < 0 || c >= nc)
+        return false;
+    if(mat[l][c] != '#')
+        return false;
+
     for( auto viz : get_neib(p)) {
         auto [l, c] = viz;
         if (l < 0 || l >= nl || c < 0 || c >= nc)
+
         continue;
+
         if(mat[viz.l][viz.c] == '#')
             count+=1;
     }
+
     return (count >= 3);
 }
 
-vector<Pos> get_neib_furaveis(matrix& mat, Pos p){
+vector<Pos> get_neib_furaveis(matrix& mat, Pos p) {
     vector<Pos> furaveis;
+
     for (auto viz : get_neib(p))
         if(pode_furar(mat, viz))
             furaveis.push_back(viz);
+
     return furaveis;
 } 
 
-void furar(matrix& mat, Pos p){
+void furar(matrix& mat, Pos p) {
     auto [l, c] = p;
     vector<Pos> pilha;
     mat[p.l][p.c] = ' ';
+
     pilha.push_back(p);
+
     while (!pilha.empty()) {
         auto topo = pilha.back();
         auto furaveis = suffle(get_neib_furaveis(mat, topo));
+
         if (furaveis.size() != 0) {
             auto escolhido = furaveis[0];
             mat[escolhido.l][escolhido.c] = ' ';
             show(mat);
             pilha.push_back(escolhido);
+
         } else {
             pilha.pop_back();
         }

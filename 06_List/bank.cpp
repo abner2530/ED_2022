@@ -18,19 +18,6 @@ struct Client {
     }
 };
 
-string formato(auto dado, string abre = "[", string fecha = "]", string sep = ", ") {
-    ostringstream ss;
-    ss << abre;
-    for (auto it = dado.begin(); it != dado.end(); ++it)
-        ss << (it != dado.begin() ? sep : "") << *it;
-    ss << fecha;
-    return ss.str();
-}
-
-ostream& operator<<(ostream& os, Client* client) {
-    return os << client->str();
-}
-
 struct Bank {
     vector<Client*> tellers;
     list<Client*> queue_in;
@@ -117,20 +104,19 @@ struct Bank {
             tic();
      }
 
-    string str() {
-        stringstream ss;
-        for (auto client : tellers)
-            ss << "[" << (client == nullptr ? "" : client->str()) << "]";
-        ss << "\nfila_in  :" << formato(queue_in, "{", "}", " ");
-        ss << "\nfila_exit :" << formato(queue_out,  "{", "}", " ");
-        ss << "\ndoc_gain:" << docs_gain << " doc_lost:" << docs_lost;
-        return ss.str();
-     }
+    void show() {
+        cout << "Tellers: ";
+        for(auto it = tellers.begin(); it != tellers.end(); it++) {
+            if(*it != nullptr) {
+                cout << (*it)->str() << " ";
+            }
+        }
+        cout << "\nFila: " << queue_in.size() << "  Fila Espera:" << queue_out.size() << "\n";
+        cout << "Docs_gain: " << docs_gain << "  Docs_lost:" << docs_lost << "\n";
+        cout << "Tics: " << tics << "\n";
+        cout << "\n";
+    }
 };
-
-ostream& operator<<(ostream& os, Bank& bank) {
-    return os << bank.str();
-}
 
 int main() {
     Bank banco(3);
@@ -143,8 +129,8 @@ int main() {
         ss >> cmd;
         if (cmd == "end") {
             break;
-        }else if (cmd == "show") {
-            cout << banco.str() << "\n";
+        } else if (cmd == "show") {
+             banco.show();
         } else if (cmd == "in") {
             string name { };
             int docs { }, patience { };

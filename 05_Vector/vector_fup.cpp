@@ -25,7 +25,7 @@ void vector_destroy(Vector * vector) {
 void vector_add(Vector * vector, int value) {
     if(vector->size < vector->capacity) {
         vector->data[vector->size] = value;
-        vector->size++;
+        vector->size+=1;
     }
 }
 
@@ -49,17 +49,17 @@ int main(){
         ss >> cmd;
         if(cmd == "end"){
             break;
-        } else if(cmd == "init"){
+        } else if(cmd == "init") {
             ss >> value;
             if(v != nullptr)
                 vector_destroy(v);
             v = vector_create(value);
         } else if(cmd == "status"){
             cout << "size:" << v->size << " capacity:" << v->capacity << "\n";
-        } else if(cmd == "add"){
+        } else if(cmd == "add") {
             while(ss >> value)
                 vector_add(v, value);
-        } else if(cmd == "show"){
+        } else if(cmd == "show") {
             cout << vector_show(v) << endl;
         } else {
             cout << "fail: comando invalido\n";

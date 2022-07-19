@@ -3,12 +3,12 @@
 
 using namespace std;
 
-struct Pos{
+struct Pos {
     int l;
     int c;
 };
 
-vector<Pos> get_neib(Pos p){
+vector<Pos> get_neib(Pos p) {
     return {{p.l, p.c - 1}, {p.l - 1, p.c}, {p.l, p.c + 1}, {p.l + 1, p.c}};
 }
 
@@ -17,6 +17,7 @@ bool andar(vector<string>& mat, Pos inicio, Pos fim) {
         mat[inicio.l][inicio.c] = '.';
         return true;
     }
+
     if (mat[inicio.l][inicio.c] != '_')
         return false;
         
@@ -27,11 +28,12 @@ bool andar(vector<string>& mat, Pos inicio, Pos fim) {
             return true;
         }
     }
+
     mat[inicio.l][inicio.c] = 'e';
     return false;
 }
 
-void errados(vector<string> &mat){
+void errados(vector<string> &mat) {
     int nl = mat.size();
     int nc = mat[0].size();
     for(int l = 0; l < nl; l++)
@@ -62,8 +64,10 @@ int main() {
             }
         }
     }
+
     andar(mat, inicio, fim);
     errados(mat);
+
     for(string line : mat)
         cout << line << endl;
 }

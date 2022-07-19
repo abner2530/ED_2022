@@ -7,12 +7,12 @@ void rotacao (vector<int>& vet, int rota) {
     int size = vet.size();
 
     for (int i = 0; i < rota; i++) {
-        int aux = vet[size - 1];
+        int temp = vet[size - 1];
         for (int j = size - 1; j > 0; j--) {
             vet[j] = vet[j - 1];
         }
         
-        vet[0] = aux;
+        vet[0] = temp;
     }
 }
 

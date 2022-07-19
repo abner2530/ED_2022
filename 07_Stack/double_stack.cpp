@@ -33,7 +33,6 @@ int main() {
             }
         }
 
-        
         if(!fila.prateleira.empty()) {
             // Removendo o topo da prateleira
             if(consulta==2)

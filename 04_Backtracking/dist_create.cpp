@@ -11,21 +11,11 @@
 using namespace std;
 
 template <class T>
-string fmt(T data) {
-    std::ostringstream ss;
-    ss << "[";
-    for (auto it = data.begin(); it != data.end(); ++it)
-        ss << (it != data.begin() ? ", " : "") << *it;
-    ss << "]";
-    return ss.str();
-}
-
-template <class T>
-vector<T> range(T _beg, T _end) {
-    std::vector<T> output;
-    for (char c = _beg; c < _end; c++)
-        output.push_back(c);
-    return output;
+    vector<T> range(T _beg, T _end) {
+        std::vector<T> output;
+        for (char c = _beg; c < _end; c++)
+            output.push_back(c);
+        return output;
 }
 
 template <class T>

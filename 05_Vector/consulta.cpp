@@ -4,14 +4,14 @@
 using namespace std;
 
 vector<int> matchingStrings(vector<string> consultas, vector<string> buscas) {
-    int sizec = buscas.size();
-    int sizeb = consultas.size();
+    int sizeb = buscas.size();
+    int sizec = consultas.size();
 
     vector<int> vet;
     int count = 0;
     
-    for (int i = 0; i < sizec; i++) {
-        for (int j = 0; j < sizeb; j++) {
+    for (int i = 0; i < sizeb; i++) {
+        for (int j = 0; j < sizec; j++) {
             if (buscas[i] == consultas[j]) {
                 count++;
             }

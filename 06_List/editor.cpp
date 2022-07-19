@@ -9,7 +9,8 @@ struct Status {
     list<char>::iterator cursor;
     
     Status() { 
-        cursor = text.end(); }
+        cursor = text.end(); 
+    }
 
     Status(string str) {
         for(auto m : str)
@@ -103,5 +104,4 @@ int main() {
         teclado(bloco, c);
 
     cout << bloco.itt->getText() << endl;
-
 }

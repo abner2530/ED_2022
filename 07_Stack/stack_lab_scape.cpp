@@ -11,7 +11,7 @@ struct Pos{
     int c;
 };
 
-vector<Pos> get_vizinhos(Pos p){
+vector<Pos> get_vizinhos(Pos p) {
     return {{p.l, p.c - 1}, {p.l - 1, p.c}, {p.l, p.c + 1}, {p.l + 1, p.c}};
 }
 
